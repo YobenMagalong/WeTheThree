@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WeTheTree.MainPage">
+
+    <AbsoluteLayout>
+
+        
+        <StackLayout
+            BackgroundColor="#EEE"
+            AbsoluteLayout.LayoutFlags="SizeProportional"  
+            AbsoluteLayout.LayoutBounds="0, 0, 1, 1">
+
+            <ScrollView 
+                x:Name="scrollview"
+                BackgroundColor="#EEE"
+                Padding="0,75,0,130"
+                VerticalOptions="FillAndExpand"
+                Scrolled="scrollview_Scrolled">
+                <StackLayout x:Name="content"></StackLayout>
+            </ScrollView>
+
+        </StackLayout>
+
+
+        <Frame
+            x:Name="header"
+            BackgroundColor="#32a852"
+            HorizontalOptions="FillAndExpand" HasShadow="True"
+            CornerRadius="32"
+            Padding="10"
+            AbsoluteLayout.LayoutFlags="SizeProportional"  
+            AbsoluteLayout.LayoutBounds="0, 0, 1, .09">
+            <Label 
+                HorizontalOptions="Center"
+                Text="WeTheTree" TextColor="White"
+                FontFamily="Comfortaa Bold" FontSize="30" CharacterSpacing="3"/>
+        
+        </Frame>
+        
+        
+        <Frame
+            x:Name="add_button"
+            CornerRadius="50"
+            HasShadow="True"
+            AbsoluteLayout.LayoutFlags="PositionProportional"  
+            AbsoluteLayout.LayoutBounds=".92, .92, 65, 65">
+            <ImageButton
+                x:Name="btnadd"
+                Margin="-30"
+                Padding="25"
+                BackgroundColor="White"
+                Source="add.png"
+                Clicked="fab_Clicked"/>
+        </Frame>
+
+        
+        <Grid
+            x:Name="input_overlay"
+            IsVisible="False"
+            AbsoluteLayout.LayoutFlags="SizeProportional"  
+            AbsoluteLayout.LayoutBounds="0, 0, 1.1, 1.1">
+
+            <ContentView
+                HorizontalOptions="FillAndExpand" 
+                VerticalOptions="FillAndExpand" 
+                BackgroundColor="White" Opacity="0.7">
+                <ContentView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="input_overlay_tapped" NumberOfTapsRequired="1" />
+                </ContentView.GestureRecognizers>
+            </ContentView>
+
+            <Frame 
+                x:Name="input_wrapper"
+                BackgroundColor="#32a852"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="Center"
+                Margin="34,-80,75,0"
+                CornerRadius="18"
+                Padding="0">
+
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="input_wrapper_tapped" NumberOfTapsRequired="1" />
+                </Frame.GestureRecognizers>
+
+                <StackLayout Spacing="0">
+                    <ImageButton 
+                        x:Name="image" 
+                        BackgroundColor="#EEE"
+                        Padding="0,50,0,50"
+                        Clicked="image_Clicked"
+                        HeightRequest="150">
+                    </ImageButton>
+
+                    <StackLayout Padding="20">
+                        <Label Text="Post A New Tree" FontFamily="Comfortaa Bold" FontSize="17" TextColor="White"/>
+                        <Entry 
+                            x:Name="c_name" 
+                            Placeholder="Tree Name" 
+                            FontFamily="Comfortaa" TextColor="Black" 
+                            Margin="0,0,0,10"
+                            Focused="c_name_Focused"
+                            Unfocused="c_name_Unfocused"/>
+
+                        <Label Text="Scientific Name" FontFamily="Comfortaaw Bold" FontSize="17" TextColor="White"/>
+                        <Entry 
+                            x:Name="sc_name" 
+                            Placeholder="Scientific Name" 
+                            FontFamily="Comfortaa" TextColor="Black" 
+                            Margin="0,0,0,10"
+                            Focused="sc_name_Focused"
+                            Unfocused="sc_name_Unfocused"/>
+
+                        <Button x:Name="submit" 
+                            Text="Post a Tree" TextColor="#32a852"
+                            FontFamily="Comfortaa SemiBold" 
+                            BackgroundColor="White"
+                            HorizontalOptions="FillAndExpand"
+                            Margin="0, 5, 0, 5"
+                            HeightRequest="40"
+                            Clicked="submit_Clicked"/>
+                    </StackLayout>
+
+                </StackLayout>
+            </Frame>
+        </Grid>
+
+        
+        <AbsoluteLayout
+            IsVisible="False"
+            x:Name="image_overlay"
+            AbsoluteLayout.LayoutFlags="SizeProportional"  
+            AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+            BackgroundColor="#32a852">
+            <AbsoluteLayout.GestureRecognizers>
+                <SwipeGestureRecognizer Direction="Up" Swiped="TapGestureRecognizer_Tapped" />
+            </AbsoluteLayout.GestureRecognizers>
+
+            <Image
+                x:Name="target_image"
+                AbsoluteLayout.LayoutFlags="SizeProportional"  
+                AbsoluteLayout.LayoutBounds="0, -10, 1, 1"
+                HeightRequest="575">
+            </Image>
+
+            <Grid
+                x:Name="parameter_container"
+                AbsoluteLayout.LayoutFlags="SizeProportional"  
+                AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                TranslationY="600">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" NumberOfTapsRequired="1" />
+                    <SwipeGestureRecognizer Direction="Down" Swiped="SwipeGestureRecognizer_Swiped" />
+                </Grid.GestureRecognizers>
+
+                <ContentView
+                    x:Name="parameter_background" 
+                    BackgroundColor="Black"
+                    Opacity="0"
+                    HorizontalOptions="FillAndExpand" 
+                    VerticalOptions="FillAndExpand">
+                </ContentView>
+
+                <StackLayout Padding="40,25,40,25">
+                    <StackLayout x:Name="target_init_parameters" Orientation="Horizontal">
+                        <Label x:Name="target_common_name"
+                               TextColor="White"
+                               FontFamily="Comfortaa SemiBold" FontSize="16"
+                               HorizontalOptions="StartAndExpand"/>
+                        <Label x:Name="target_scientific_name"
+                               TextColor="White"
+                               FontFamily="Comfortaa Italic" FontSize="16"
+                               HorizontalOptions="EndAndExpand"/>
+                    </StackLayout>
+                    <ScrollView x:Name="target_parameters_wrapper" Margin="0,0,0,40" Padding="0,0,0,300">
+                        <StackLayout 
+                            x:Name="target_parameters_container" 
+                            Opacity="0" 
+                            Padding="40,20,40,0"
+                            HorizontalOptions="FillAndExpand">
+                        </StackLayout>
+                    </ScrollView>
+                </StackLayout>
+            </Grid>
+
+            <ImageButton
+                x:Name="menu"
+                BackgroundColor="Transparent"
+                Clicked="menu_Clicked"
+                AbsoluteLayout.LayoutFlags="PositionProportional"  
+                AbsoluteLayout.LayoutBounds=".95, .05, 31, 31"/>
+
+            <StackLayout
+                x:Name="options"
+                BackgroundColor="White"
+                AbsoluteLayout.LayoutFlags="SizeProportional"  
+                AbsoluteLayout.LayoutBounds="0, 0, .60, 1"
+                TranslationX="420"
+                Padding="0,30,0,30">
+
+                <ImageButton
+                    x:Name="close"
+                    BackgroundColor="Transparent"
+                    Clicked="close_Clicked"
+                    HorizontalOptions="End"
+                    HeightRequest="40"
+                    WidthRequest="40"
+                    Margin="0,1,13,0"/>
+
+                <StackLayout Orientation="Horizontal" Margin="0,20,0,0" Padding="15">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="edit_Tapped" NumberOfTapsRequired="1" />
+                    </StackLayout.GestureRecognizers>
+
+                    <Label HorizontalOptions="StartAndExpand"
+                            Text="EDIT" TextColor="#32a852"
+                            FontSize="30" CharacterSpacing="2"/>
+                    <Image x:Name="edit_logo"
+                            WidthRequest="38" HeightRequest="38" />
+                </StackLayout>
+
+
+                <StackLayout Orientation="Horizontal" Margin="0,20,0,0" Padding="15">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="delete_Tapped" NumberOfTapsRequired="1" />
+                    </StackLayout.GestureRecognizers>
+
+                    <Label HorizontalOptions="StartAndExpand"
+                            Text="DELETE" TextColor="#32a852"
+                            FontSize="30" CharacterSpacing="2"/>
+                    <Image x:Name="delete_logo"
+                            WidthRequest="38" HeightRequest="38" />
+                </StackLayout>
+
+            </StackLayout>
+
+        </AbsoluteLayout>
+    </AbsoluteLayout>
+</ContentPage>
